@@ -7,9 +7,17 @@ class IsAuthorOrReadOnlyPermission(permissions.BasePermission):
     может любой пользователь.
     Создавать новую публикацию может только аутентифицированный пользователь.
     """
+
     def has_object_permission(self, request, view, obj):
         # Разрешаем чтение всех публикаций
         if request.method in permissions.SAFE_METHODS:
             return True
         # Разрешаем только авторам редактировать или удалять свои публикации
         return obj.author == request.user
+
+
+class IsAdminOrAllowAny(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method == "POST" and self.request.user.is_staff:
+            return True
+        return True

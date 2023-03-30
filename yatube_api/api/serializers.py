@@ -7,7 +7,6 @@ from posts.models import Comment, Post, Group, Follow
 
 from djoser.serializers import UserSerializer
 
-...
 User = get_user_model()
 
 
