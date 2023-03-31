@@ -14,7 +14,10 @@ app_name = "api"
 
 urlpatterns = [
     path("v1/", include(v1_router.urls)),
-    path("v1/follow/", FollowViewSet.as_view()),
+    path("v1/follow/", FollowViewSet.as_view({
+        "get": "list",
+        "post": "create"
+    })),
     path("v1/", include("djoser.urls")),
     # JWT-эндпоинты, для управления JWT-токенами:
     path("v1/", include("djoser.urls.jwt")),
